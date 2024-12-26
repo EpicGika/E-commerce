@@ -3,13 +3,13 @@ from django.contrib.auth import get_user_model
 from .serializers import UserSerializers, ProductSerializers, CategorySerializers, OrderSerializers
 from products.models import Product, Category 
 from orders.models import Order
-from rest_framework.permissions import IsAuthenticated
-
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 User = get_user_model()
 
 class UserViewSet(ReadOnlyModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializers
+    permission_classes = [IsAdminUser]
 
 class ProductViewSet(ModelViewSet):
     queryset = Product.objects.all()
